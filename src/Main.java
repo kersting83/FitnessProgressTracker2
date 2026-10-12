@@ -28,7 +28,7 @@ public class Main {
         Scanner sc = new Scanner(System.in);
 
         // 2. API starten
-        HttpServer server = starteApi(nutzerVw, uebungVw);
+       // HttpServer server = starteApi(nutzerVw, uebungVw);
 
         // 3. Menüschleife
         boolean laeuft = true;
