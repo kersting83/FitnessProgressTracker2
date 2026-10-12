@@ -109,57 +109,58 @@ private static double leseDouble(Scanner sc, String text) {
   //  try {
     //    HttpServer server = HttpServer.create(new InetSocketAddress(8080), 0);
 
-        server.createContext("/api/nutzer", exchange -> {
-            try {
-                ArrayList<Nutzer> liste = nutzerVw.alleNutzerLaden();
-                StringBuilder json = new StringBuilder("[");
-                for (int i = 0; i < liste.size(); i++) {
-                    json.append(liste.get(i).toJson());
-                    if (i < liste.size() - 1) {
-                        json.append(",");
-                    }
-                }
-                json.append("]");
-                antworten(exchange, 200, json.toString());
-            } catch (SQLException e) {
-                antworten(exchange, 500, "{\"fehler\":\"Datenbankfehler\"}");
-            }
-        });
-    }catch(SQLException e) {
-        System.out.println("Fehler bei der Auswahl: " + e.getMessage());
-    }
-    server.createContext("/api/fortschritt", exchange -> {
-        String query = exchange.getRequestURI().getQuery();
-        if (query == null || !query.startsWith("id=")) {
-            antworten(exchange, 400, "{\"fehler\":\"Parameter id fehlt\"}");
-            return;
-        }
-        try {
-            int id = Integer.parseInt(query.substring(3));
-            int anzahl = uebungVw.zaehleWorkouts(id);
-            String level = Uebungsverwaltung.ermittleLevel(anzahl);
-            antworten(exchange, 200, String.format(
-                    "{\"nutzerId\":%d,\"workouts\":%d,\"level\":\"%s\"}", id, anzahl, level));
-        } catch (NumberFormatException e) {
-            antworten(exchange, 400, "{\"fehler\":\"id muss eine Zahl sein\"}");
-        } catch (SQLException e) {
-            antworten(exchange, 500, "{\"fehler\":\"Datenbankfehler\"}");
-        }
-    });
-    server.start();
-    System.out.println("API läuft auf http://localhost:8080/api/nutzer");
-    return server;
-    }catch(IOException e) {
-        System.out.println("API konnte nicht gestartet werden: " + e.getMessage());
-        return null;
-        }
-        }
-private static void antworten(HttpExchange exchange, int status, String json) throws IOException {
-    byte[] bytes = json.getBytes(StandardCharsets.UTF_8);
-    exchange.getResponseHeaders().set("Content-Type", "application/json; charset=utf-8");
-    exchange.sendResponseHeaders(status, bytes.length);
-    try (OutputStream os = exchange.getResponseBody()) {
-        os.write(bytes);
-    }
+      //  server.createContext("/api/nutzer", exchange -> {
+        //    try {
+          //      ArrayList<Nutzer> liste = nutzerVw.alleNutzerLaden();
+            //    StringBuilder json = new StringBuilder("[");
+              //  for (int i = 0; i < liste.size(); i++) {
+                //    json.append(liste.get(i).toJson());
+                  //  if (i < liste.size() - 1) {
+                    //    json.append(",");
+                    //}
+               // }
+               // json.append("]");
+               // antworten(exchange, 200, json.toString());
+            //} catch (SQLException e) {
+              //  antworten(exchange, 500, "{\"fehler\":\"Datenbankfehler\"}");
+            //}
+        //});
+    //}catch(SQLException e) {
+      //  System.out.println("Fehler bei der Auswahl: " + e.getMessage());
+   // }
+   // server.createContext("/api/fortschritt", exchange -> {
+     //   String query = exchange.getRequestURI().getQuery();
+       // if (query == null || !query.startsWith("id=")) {
+         //   antworten(exchange, 400, "{\"fehler\":\"Parameter id fehlt\"}");
+           // return;
+       // }
+       // try {
+         //   int id = Integer.parseInt(query.substring(3));
+           // int anzahl = uebungVw.zaehleWorkouts(id);
+            //String level = Uebungsverwaltung.ermittleLevel(anzahl);
+            //antworten(exchange, 200, String.format(
+              //      "{\"nutzerId\":%d,\"workouts\":%d,\"level\":\"%s\"}", id, anzahl, level));
+        //} catch (NumberFormatException e) {
+          //  antworten(exchange, 400, "{\"fehler\":\"id muss eine Zahl sein\"}");
+        //} catch (SQLException e) {
+          //  antworten(exchange, 500, "{\"fehler\":\"Datenbankfehler\"}");
+        //}
+    //});
+    //server.start();
+    //System.out.println("API läuft auf http://localhost:8080/api/nutzer");
+    //return server;
+    //}catch(IOException e) {
+      //  System.out.println("API konnte nicht gestartet werden: " + e.getMessage());
+        //return null;
+        //}
+        //}
+//private static void antworten(HttpExchange exchange, int status, String json) throws IOException {
+  //  byte[] bytes = json.getBytes(StandardCharsets.UTF_8);
+    //exchange.getResponseHeaders().set("Content-Type", "application/json; charset=utf-8");
+    //exchange.sendResponseHeaders(status, bytes.length);
+    //try (OutputStream os = exchange.getResponseBody()) {
+      //  os.write(bytes);
+    //}
+//}
 }
 }
