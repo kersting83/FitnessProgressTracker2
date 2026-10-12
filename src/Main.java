@@ -55,11 +55,11 @@ public class Main {
                 int wdh = leseInt(sc, "Neue Wiederholungen: ");
                 double kg = leseDouble(sc, "Neues Gewicht in kg: ");
                 uebungVw.workoutAendern(id, saetze, wdh, kg);
-            }
-            case 7 -> uebungVw.workoutLoeschen(leseInt(sc, "Workout-ID: "));
-            case 8 -> uebungVw.statistikAnzeigen(leseInt(sc, "Nutzer-ID: "));
-            case 0 -> laeuft = false;
-            default -> System.out.println("Ungültige Auswahl.");
+                }
+                case 7 -> uebungVw.workoutLoeschen(leseInt(sc, "Workout-ID: "));
+                case 8 -> uebungVw.statistikAnzeigen(leseInt(sc, "Nutzer-ID: "));
+                case 0 -> laeuft = false;
+                default -> System.out.println("Ungültige Auswahl.");
         }
     }
     // 4. Aufräumen
@@ -103,8 +103,8 @@ private static double leseDouble(Scanner sc, String text) {
     }
 }
 // ---------- API ----------
-// GET http://localhost:8080/api/nutzer
-// GET http://localhost:8080/api/fortschritt?id=1
+ //GET http://localhost:8080/api/nutzer
+//GET http://localhost:8080/api/fortschritt?id=1
 private static HttpServer starteApi(NutzerDAO nutzerVw, Uebungsverwaltung uebungVw) {
     try {
         HttpServer server = HttpServer.create(new InetSocketAddress(8080), 0);
@@ -149,7 +149,7 @@ private static HttpServer starteApi(NutzerDAO nutzerVw, Uebungsverwaltung uebung
     server.start();
     System.out.println("API läuft auf http://localhost:8080/api/nutzer");
     return server;
-} catch (IOException e) {
+    }catch(IOException e) {
         System.out.println("API konnte nicht gestartet werden: " + e.getMessage());
         return null;
         }
@@ -161,4 +161,5 @@ private static void antworten(HttpExchange exchange, int status, String json) th
     try (OutputStream os = exchange.getResponseBody()) {
         os.write(bytes);
     }
+}
 }
