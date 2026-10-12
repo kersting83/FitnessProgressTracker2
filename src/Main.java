@@ -105,9 +105,9 @@ private static double leseDouble(Scanner sc, String text) {
 // ---------- API ----------
  //GET http://localhost:8080/api/nutzer
 //GET http://localhost:8080/api/fortschritt?id=1
-private static HttpServer starteApi(NutzerDAO nutzerVw, Uebungsverwaltung uebungVw) {
-    try {
-        HttpServer server = HttpServer.create(new InetSocketAddress(8080), 0);
+//private static HttpServer starteApi(NutzerDAO nutzerVw, Uebungsverwaltung uebungVw) {
+  //  try {
+    //    HttpServer server = HttpServer.create(new InetSocketAddress(8080), 0);
 
         server.createContext("/api/nutzer", exchange -> {
             try {
