@@ -90,6 +90,35 @@ public class Uebungsverwaltung {
             System.out.println("Fehler: " + e.getMessage());
         }
     }
+    public void workoutHinzufuegen(int nutzerId, int uebungId, int saetze,
+                                   int wiederholungen, double gewichtKg) {
+        // Eingaben prüfen, bevor die Datenbank angefragt wird
+        if (saetze <= 0 || wiederholungen <= 0 || gewichtKg < 0) {
+            System.out.println("Sätze und Wiederholungen müssen größer als 0 sein, "
+                    + "das Gewicht darf nicht negativ sein.");
+            return;
+        }
+        String sql = "INSERT INTO workouts "
+                + "(nutzer_id, uebung_id, saetze, wiederholungen, gewicht_kg) "
+                + "VALUES (?, ?, ?, ?, ?)";
+        try (Connection con = Datenbank.verbindungHerstellen();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, nutzerId);
+            ps.setInt(2, uebungId);
+            ps.setInt(3, saetze);
+            ps.setInt(4, wiederholungen);
+            ps.setDouble(5, gewichtKg);
+            ps.executeUpdate();
+            System.out.println("Workout wurde dem Nutzer " + nutzerId + " zugeordnet.");
+        } catch (SQLException e) {
+            // 23503 = Fremdschlüssel-Verletzung: Nutzer oder Übung existiert nicht
+            if ("23503".equals(e.getSQLState())) {
+                System.out.println("Nutzer-ID oder Übungs-ID existiert nicht.");
+            } else {
+                System.out.println("Fehler beim Hinzufügen: " + e.getMessage());
+            }
+        }
+    }
     public void workoutAendern(int workoutId, int saetze, int wiederholungen, double gewicht_kg) {
         String sql = """
                 UPDATE workouts
