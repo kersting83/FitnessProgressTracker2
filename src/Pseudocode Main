@@ -53,3 +53,20 @@ SOLANGE läuft
             GIB "Workout geändert" aus
     BEI FEHLER (SQLException)
         GIB Fehlermeldung aus
+
+METHODE Statistik anzeigen(nutzerId)
+    VERSUCHE
+        Führe Abfrage aus:
+            Verbinde Workouts mit Übungen (JOIN)
+            filtere auf nutzerID (WHERE)
+            gruppiere nach Übung (GROUP BY)
+            berechne COUNT, SUM, AVG, MAX
+            Behalte nur Gruppen mit COUNT >= 2 (HAVING)
+        FÜR JEDE Ergebniszeile
+            GIB Übung, Einheiten, Gesamt-Wdh, AVG Kg, MAX kg aus
+        WENN keine Zeile gefunden
+            GIB "Noch keine Auswertung" aus
+    BEI FEHLER (SQLException)
+        GIB Fehlermeldung aus
+
+ENDE PROGRAMM
