@@ -31,8 +31,8 @@ public class Main {
        // HttpServer server = starteApi(nutzerVw, uebungVw);
 
         // 3. Menüschleife
-        boolean laeuft = true;
-        while (laeuft) {
+        boolean running = true;
+        while (running) {
             zeigeMenue();
             int wahl = leseInt(sc, "Auswahl: ");
             switch (wahl) {
