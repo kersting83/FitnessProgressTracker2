@@ -71,11 +71,11 @@ public class Main {
                 default -> System.out.println("Ungültige Auswahl.");
         }
     }
-    // 4. Aufräumen
-        if (server != null) {
-        server.stop(0);
-    }
-        System.out.println("Programm beendet.");
+    // 4. Server stoppen
+       // if (server != null) {
+        //server.stop(0);
+   // }
+     //   System.out.println("Programm beendet.");
 }
 private static void zeigeMenue() {
     System.out.println();
