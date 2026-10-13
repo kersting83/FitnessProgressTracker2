@@ -58,7 +58,16 @@ public class Main {
                 }
                 case 7 -> uebungVw.workoutLoeschen(leseInt(sc, "Workout-ID: "));
                 case 8 -> uebungVw.statistikAnzeigen(leseInt(sc, "Nutzer-ID: "));
-                case 0 -> laeuft = false;
+                case 9 -> {
+                    uebungVw.uebungenAnzeigen();                  // zeigt die Übungs-IDs
+                    int nutzerId = leseInt(sc, "Nutzer-ID: ");
+                    int uebungId = leseInt(sc, "Übungs-ID: ");
+                    int saetze   = leseInt(sc, "Sätze: ");
+                    int wdh      = leseInt(sc, "Wiederholungen: ");
+                    double kg    = leseDouble(sc, "Gewicht in kg: ");
+                    uebungVw.workoutHinzufuegen(nutzerId, uebungId, saetze, wdh, kg);
+                }
+                case 0 -> running = false;
                 default -> System.out.println("Ungültige Auswahl.");
         }
     }
