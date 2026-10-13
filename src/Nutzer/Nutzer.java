@@ -33,7 +33,7 @@ public class Nutzer {
     }
     @Override
     public String toString() {
-        return String.format("%-4d %-15s %-15s  %-25s %6.1f kg", id, vorname, nachname, email,  gewicht);
+        return String.format("%-4d %-15s %-15s %-25s %6.1f kg", id, vorname, nachname, email,  gewicht);
     }
     public String toJson(){
         return String.format(java.util.Locale.US, "{\"id\":%d,\"name\":\"%s\",\"email\":\"%s\",\"gewicht\":%.1f}",

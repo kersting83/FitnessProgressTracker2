@@ -16,7 +16,7 @@ SOLANGE läuft
     6: lies Workout-ID, Sätze, WdH, Gewicht --> workout aendern
     7: lies Workout-ID --> Workout loeschen
     8: lies ID --> Statistik anzeigen
-    9: zeige Übungen, lies Nutzer-ID, Übungs-ID, Sätzte, Wdh, Gewicht --> Workout hinzufügen
+    9: zeige Übungen, lies Nutzer-ID, Übungs-ID, Sätze, Wdh, Gewicht --> Workout hinzufügen
     10: Uebungen anzeigen
     0: läuft = falsch
     SONST: Fehlermeldung "Ungültige Auswahl"

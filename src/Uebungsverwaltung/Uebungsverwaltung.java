@@ -14,7 +14,7 @@ public class Uebungsverwaltung {
             return "Profi";
         }
     }
-    // Dieser Abschnitt wird von der API genutzt
+    // Dieser Abschnitt wird für die Statistik gebraucht
     public int zaehleWorkouts(int nutzer_id) throws SQLException {
         String sql = """
                 SELECT COUNT(*)
@@ -36,7 +36,7 @@ public class Uebungsverwaltung {
                 FROM nutzer n
                 LEFT JOIN workouts w ON n.nutzer_id = w.nutzer_id
                 WHERE n.nutzer_id = ?
-                GROUP BY n.nachname;
+                GROUP BY n.vorname,  n.nachname;
                 """;
         try (Connection con = Datenbank.verbindungHerstellen();
              PreparedStatement ps = con.prepareStatement(sql)){
@@ -44,8 +44,7 @@ public class Uebungsverwaltung {
             try(ResultSet rs = ps.executeQuery()) {
                 if(rs.next()) {
                     int anzahl = rs.getInt("anzahl");
-                    System.out.println("Nutzer: " + rs.getString("Vorname "
-                            + "Nachname "));
+                    System.out.println("Nutzer: " + rs.getString("vorname") + " " + rs.getString  ("nachname"));
                     System.out.println("Workouts: " + anzahl);
                     System.out.println("Level: " + ermittleLevel(anzahl));
                 }else {
@@ -56,13 +55,30 @@ public class Uebungsverwaltung {
             System.out.println("Fehler: " + e.getMessage());
         }
     }
+    public void uebungenAnzeigen() {
+        String sql = "SELECT uebung_id, name, muskelgruppe FROM uebungen ORDER BY uebung_id";
+        try (Connection con = Datenbank.verbindungHerstellen();
+             PreparedStatement ps = con.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            System.out.printf("%-4s %-18s %-12s%n", "ID", "Übung", "Muskelgruppe");
+            while (rs.next()) {
+                System.out.printf("%-4d %-18s %-12s%n",
+                        rs.getInt("uebung_id"),
+                        rs.getString("name"),
+                        rs.getString("muskelgruppe"));
+            }
+        } catch (SQLException e) {
+            System.out.println("Fehler: " + e.getMessage());
+        }
+    }
     public void workoutsAnzeigen(int nutzer_id) {
         String sql = """
                 SELECT w.workout_id, w.datum, u.name AS uebung,
                        w. saetze, w.wiederholungen, w.gewicht_kg
                 FROM workouts w
                 JOIN uebungen u ON w.uebung_id = u.uebung_id
-                WHERE w.nutzer_id = ?;
+                WHERE w.nutzer_id = ?
                 ORDER BY w.datum DESC;
                 """;
         try (Connection con = Datenbank.verbindungHerstellen();
@@ -71,14 +87,14 @@ public class Uebungsverwaltung {
             try (ResultSet rs = ps.executeQuery()) {
                 boolean gefunden = false;
                 System.out.printf("%-4s %-12s %-18s %6s %5s %8s%n",
-                        "ID", "Datum", "Übung", "Sätze", "Wdh", "kg");
+                        "ID", "Datum", "uebung", "Sätze", "Wdh", "kg");
                 while (rs.next()) {
                     gefunden = true;
                     System.out.printf("%-4d %-12s %-18s %6d %5d %8.1f%n",
                             rs.getInt("workout_id"),
                             rs.getDate("datum"),
                             rs.getString("uebung"),
-                            rs.getInt("seatze"),
+                            rs.getInt("saetze"),
                             rs.getInt("wiederholungen"),
                             rs.getDouble("gewicht_kg"));
                 }

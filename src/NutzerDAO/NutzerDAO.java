@@ -29,7 +29,7 @@ public class NutzerDAO {
         ArrayList<Nutzer> liste = new ArrayList<>();
         String sql = """
                 SELECT nutzer_id, vorname, nachname, email, gewicht
-                FROM nutzer;
+                FROM nutzer
                 ORDER BY nutzer_id;
                 """;
         try (Connection con = Datenbank.verbindungHerstellen();
@@ -54,7 +54,7 @@ public class NutzerDAO {
                 System.out.println("Keine Nutzer vorhanden.");
                 return;
             }
-            System.out.println("ID   Vorname   Nachname   Email   Gewicht");
+            System.out.printf("%-4s %-15s %-15s %-25s %9s%n", "ID", "Vorname", "Nachname", "E-Mail", "Gewicht");
             for (Nutzer n : liste) {
                 System.out.println(n);
             }

@@ -1,7 +1,6 @@
 import java.util.*;
 import java.sql.*;
 import Datenbank.Datenbank;
-import Nutzer.Nutzer;
 import NutzerDAO.NutzerDAO;
 import Uebungsverwaltung.Uebungsverwaltung;
 //import com.sun.net.httpserver.HttpExchange;
@@ -172,5 +171,4 @@ private static double leseDouble(Scanner sc, String text) {
       //  os.write(bytes);
     //}
 //}
-}
 }
