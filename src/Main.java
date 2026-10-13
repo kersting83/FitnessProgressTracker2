@@ -88,6 +88,7 @@ private static void zeigeMenue() {
     System.out.println("6 Workout ändern");
     System.out.println("7 Workout löschen");
     System.out.println("8 Statistik anzeigen");
+    System.out.println("9 Workout hinzufügen");
     System.out.println("0 Beenden");
 }
 // Exception Handling bei Benutzereingaben
