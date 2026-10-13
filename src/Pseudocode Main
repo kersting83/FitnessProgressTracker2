@@ -1,0 +1,55 @@
+STARTE Fitnesstracker
+teste Datenverbindung
+WENN Verbindung fehlgeschlagen DANN
+    AUSGABE Meldung UND Programm beenden
+ENDE WENN
+läuft = wahr
+SOLANGE läuft
+    zeige Menü
+    lies Auswahl (wiederhole, bis eine gültige Zahl eingegeben wurde)
+    FALL Auswahl
+    1: lies Vorname, Nachname, E-Mail, Gewicht --> Nutzer anlegen
+    2: Nutzer anzeigen
+    3: Lies ID --> Nutzer loeschen
+    4: Lies ID --> Fortschritt anzeigen
+    5: lies ID --> workouts anzeigen
+    6: lies Workout-ID, Sätze, WdH, Gewicht --> workout aendern
+    7: lies Workout-ID --> Workout loeschen
+    8: lies ID --> Statistik anzeigen
+    9: zeige Übungen, lies Nutzer-ID, Übungs-ID, Sätzte, Wdh, Gewicht --> Workout hinzufügen
+    10: Uebungen anzeigen
+    0: läuft = falsch
+    SONST: Fehlermeldung "Ungültige Auswahl"
+  ENDE SOLANGE
+
+ METHODE ermittleLevel(anzahl)
+    WENN anzahl < 5
+        GIB "Anfänger" zurück
+    SONST WENN anzahl < 15
+        GIB "Fortgeschritten" ZURÜCK
+    SONST
+        GIB "Profi" ZURÜCK
+
+ METHODE workout hinzufügen(Nutzerid, UebungID, Saetze, wdh, gewicht)
+    WENN saetze <= 0 ODER wdh <= 0 ODER gwicht < 0
+        gib Fehlermeldung aus, BRICH AB
+    VERSUCHE
+        öffne Verbindung
+        führe INSERT in Tabelle workouts aus
+        gib "Workout hinzufügen" uas
+    BEI FEHLER (SQLException)
+        WENN Fehlercode = Fremdschlüssel-Verletzung
+            GIB "Nutzer-ID oder Übungs-ID existieren nicht" aus
+        SONST
+            GIB allgemeine Fehlermeldung aus
+
+ METHODE workout ändern(Id, saetze, wdh, gewicht)
+    VERSUCHE
+        Öffne Verbindung
+        Führe UPDATE für das Workout mit dieser ID aus
+        WENN betroffene Zeilen = 0
+            GIB "Workout nicht gefunden" uas
+        SONST
+            GIB "Workout geändert" aus
+    BEI FEHLER (SQLException)
+        GIB Fehlermeldung aus
